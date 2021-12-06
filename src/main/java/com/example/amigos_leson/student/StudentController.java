@@ -1,10 +1,8 @@
 package com.example.amigos_leson.student;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -20,10 +18,14 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping()
+    @GetMapping("/all")
     public List<Student> getAllStudent(){
        return studentService.getAllStudent();
     }
 
-    @PostMapping
+//    @RequestMapping(method=RequestMethod.POST, value="/post", produces = "application/json", consumes = "application/json")
+    @PostMapping("/post")
+    public void registerNewStudent(@RequestBody Student student){
+        studentService.addNewStudent(student);
+    }
 }
